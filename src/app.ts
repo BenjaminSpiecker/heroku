@@ -6,6 +6,8 @@ import config from './lib/config';
 import routes from './routes/index'
 import session from 'express-session'
 import payment from './routes/payment'
+import path from 'path';
+
 const app = express()
 
 // app.use(express.static("public"))
@@ -43,6 +45,7 @@ app.use(
     }  )
 )
 
+
 interface Error {
     message: string;
     status: number;
@@ -54,8 +57,12 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     console.error(err);
     res.status(status).send(message)
 })
+app.use (express.static(`build`))
 
 app.use('/api', routes)
 app.use('/', payment)
+app.get('/*', (req: Request, res: Response) => {
+    return res.sendFile(path.join(__dirname, `build`, `index.html`))
+})
 
 export default app;
