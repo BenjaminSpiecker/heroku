@@ -27,8 +27,8 @@ router.post('/procesarpago', async (req, res) => {
       line_items: clases,
       customer_email: cliente,
       mode: 'payment',
-      success_url: 'http://localhost:3000/pagoexitoso?id={CHECKOUT_SESSION_ID}',
-      cancel_url: 'http://localhost:3000/cesta',
+      success_url: `http://localhost:${config.port}/pagoexitoso?id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `http://localhost:${config.port}/cesta`,
     });
 
     

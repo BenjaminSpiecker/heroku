@@ -14,7 +14,7 @@ interface MiddlewareRequest extends Request {
 
 router.post('/add', validateToken, async (req: MiddlewareRequest, res: Response) => {
     let query: Disponible = req.body
-    console.log(req.body.email, req.data.mail)
+    
     if (req.data.role !== 2 && req.body.email != req.data.mail) {
         return res.status(400).send('You are not authorized.')
     }

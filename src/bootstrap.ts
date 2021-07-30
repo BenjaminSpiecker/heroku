@@ -5,8 +5,9 @@ import Profesor from "./models/Profesor"
 import Reclamo from "./models/Reclamo";
 import User from "./models/Usuario";
 import { Role } from "../interfaces";
-import { hashPassword } from "./utils/auth";
+import { decrypt, hashPassword } from "./utils/auth";
 import config from './lib/config'
+import {sign} from 'jsonwebtoken'
 
 const pass = "123456"
 
@@ -367,32 +368,103 @@ const bootstrap = async () => {
         /////////////////////////
 
 
-        for (const user of [
-            Edward,
-            MauroLeonel,
-            Diego,
-            Javi,
-            Mauro,
-            Benja,
-            Mauro,
-            Leonel
+        // for (const user of [
+        //     Edward,
+        //     MauroLeonel,
+        //     Diego,
+        //     Javi,
+        //     Mauro,
+        //     Benja,
+        //     Mauro,
+        //     Leonel
             
-        ]) {
-            const payload: Disponible = {
-                disponible: [['08:00:00', '12:00:00'], ['16:00:00', '21:00:00']],
-                email: user.User_mail,
-                fecha: {anio: date.getFullYear(), dia: date.getDate(), mes: date.getMonth() + 1}
-            }
+        // ]) {
+        //     const payload: Disponible = {
+        //         disponible: [['08:00:00', '12:00:00'], ['16:00:00', '21:00:00']],
+        //         email: user.User_mail,
+        //         fecha: {anio: date.getFullYear(), dia: date.getDate(), mes: date.getMonth() + 1}
+        //     }
            
-            try {
-                const token1 = await axios.post(`http://localhost:${config.port}/api/login`, {mail: user.User_mail, password: '123456'})
-                await axios.post(`http://localhost:${config.port}/api/calendario/add`, payload, {headers: {Authorization: token1.data.token}})
+        //     try {
+        //         const token = sign({
+        //             mail: user.User_mail, 
+        //             role: user.role,
+        //              name: user.name,
+        //               lastName: user.lastName
+        //             }, process.env.SECRET)
+                    
+        //         await axios.post(`http://localhost:${config.port}/api/calendario/add`, payload, {headers: {Authorization: token}})
+
+        //         let profesor = await Profesor.findOne({
+        //             where: {
+        //                 User_mail: user.User_mail
+        //             }
+                   
+        //         })
+        
+        //         if (profesor) {
+                    
+        //             if (profesor.calendario) {
+        //                 const indice = profesor.calendario.findIndex(element => element.fecha.anio === query.fecha.anio && element.fecha.mes === query.fecha.mes && element.fecha.dia === query.fecha.dia)
+        
+        //                 const calendario = profesor.calendario[indice]
+        
+        //                 if (calendario) {
+        
+        //                     const resultado: Horario = nuevosHorarios(calendario, query)
+        
+        //                     const nuevoCalendario = profesor.calendario.map((e, i) => i === indice ? resultado : e)
+        
+        //                     profesor.set({
+        //                         ...profesor,
+        //                         calendario: nuevoCalendario
+        //                     })
+        //                     let calendarioEditado = await profesor.save()
+                            
+        //                     res.send(calendarioEditado)
+        
+        //                 }
+        //                 else {
+                            
+        //                     profesor.set({
+        //                         ...profesor,
+        //                         calendario: [
+        //                             ...profesor.calendario,
+        //                             {
+        //                                 email: query.email,
+        //                                 fecha: query.fecha,
+        //                                 disponible: query.disponible ? query.disponible : null,
+        //                                 ocupado: null
+        //                             }
+        //                         ]
+        //                     })
+        //                     let calendarioEditado = await profesor.save()
+        //                     return res.send(calendarioEditado)
+        //                 }
+        //             }
+        //             else {
+                        
+        //                 profesor.set({
+        //                     ...profesor,
+        //                     calendario: [
+        //                         {
+        //                             email: query.email,
+        //                             fecha: query.fecha,
+        //                             disponible: query.disponible ? query.disponible : null,
+        //                             ocupado: null,
+        //                         }
+        //                     ]
+        //                 })
+        //                 let calendarioEditado = await profesor.save()
+        //                 return res.send(calendarioEditado)
+        //             }
+        //         }
     
                 
-            } catch (err) {
-                console.log(err)
-            }
-        }
+        //     } catch (err) {
+        //         console.log(err)
+        //     }
+        // }
 
         // //////////////////////
         // // Agregar Reclamos //

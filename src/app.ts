@@ -26,7 +26,7 @@ app.use(session({
 }));
 
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // update to match the domain you will make the request from
+    res.header('Access-Control-Allow-Origin', `http://localhost:${config.port}`); // update to match the domain you will make the request from
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 
 app.use(
     cors(  {
-        origin: config.cors,
+        origin: `http://localhost:${config.port}`,
         credentials: true,
         methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'DELETE','PATCH'],
         allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'authorization']
