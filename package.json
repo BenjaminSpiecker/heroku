@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node --loader ts-node/esm index.ts",
     "test": "jest",
     "dev": "nodemon index.ts"
   },

@@ -6,6 +6,7 @@ import Reclamo from "./models/Reclamo";
 import User from "./models/Usuario";
 import { Role } from "../interfaces";
 import { hashPassword } from "./utils/auth";
+import config from './lib/config'
 
 const pass = "123456"
 
@@ -384,8 +385,8 @@ const bootstrap = async () => {
             }
            
             try {
-                const token1 = await axios.post(`http://localhost:${process.env.PORT}/api/login`, {mail: user.User_mail, password: '123456'})
-                await axios.post(`http://localhost:${process.env.PORT}/api/calendario/add`, payload, {headers: {Authorization: token1.data.token}})
+                const token1 = await axios.post(`http://localhost:${config.port}/api/login`, {mail: user.User_mail, password: '123456'})
+                await axios.post(`http://localhost:${config.port}/api/calendario/add`, payload, {headers: {Authorization: token1.data.token}})
     
                 
             } catch (err) {
